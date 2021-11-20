@@ -1,3 +1,3 @@
 # Bundlr node
 
-TODO: Complete docs
+NodeJS implementation of a Bundlr node
