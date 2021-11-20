@@ -1,0 +1,9 @@
+query DataItems($transactionAfter: String) {
+    transaction(after: $transactionAfter) {
+        data_item_id,
+        address,
+        block,
+        expected_block,
+        signature
+    }
+}

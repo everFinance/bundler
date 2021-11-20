@@ -1,0 +1,30 @@
+type Query @rateLimit(limit: 1, duration: 60) {
+    transaction(ids: [String!], after: String): [Transaction]
+    peer: Peer
+    account(external: Boolean, addresses: [String]): [Account!]!
+}
+
+type Transaction {
+    data_item_id: String!
+    address: String!
+    block: BigInt!
+    expected_block: BigInt!
+    signature: String!
+}
+
+type Tag {
+    name: String
+    value: String
+}
+
+type Peer {
+    address: String
+}
+
+scalar BigInt
+
+type Account {
+    address: String
+    balance: BigInt
+    external: Boolean
+}

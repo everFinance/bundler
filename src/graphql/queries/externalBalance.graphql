@@ -1,0 +1,6 @@
+query ExternalBalance {
+    account {
+        address
+        balance
+    }
+}

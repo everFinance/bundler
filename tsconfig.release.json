@@ -1,0 +1,19 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "lib": ["es5", "es6", "dom", "esnext"],
+    "rootDir": ".",
+    "outDir": "build",
+    "allowJs": true,
+    "sourceMap": true,
+    "removeComments": true,
+    "skipLibCheck": true
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "src/server/__tests__/**/*",
+    "scripts/**/*"
+  ]
+}
