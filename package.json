@@ -75,6 +75,7 @@
     "datasource-sql": "^1.4.1",
     "dotenv": "^10.0.0",
     "ethers": "^5.5.1",
+    "everpay": "^0.2.1",
     "follow-redirects": "^1.14.3",
     "form-data": "^4.0.0",
     "graphql": "^15.5.1",

@@ -116,6 +116,34 @@ export const currencies: CurrencyConfig = {
     sendTx: sendMaticTx,
     createTx: createMaticTx
   } : undefined,
+  "everpay": keys.everpay ? {
+    base: ["winston", 1e12],
+    account: { key: keys.everpay.key, address: keys.everpay.address },
+    getTx: null,
+    ownerToAddress: async (owner) => {
+      return arweave.wallets.ownerToAddress(Buffer.isBuffer(owner) ? base64url(owner) : owner);
+    },
+    getId: async (item) => {
+      return base64url.encode(Buffer.from(await Arweave.crypto.hash(await item.rawSignature())));
+    },
+    price: () => getRedstonePrice("AR"),
+    sign: async (data) => {
+      return Arweave.crypto.sign(currencies["arweave"].account.key, data);
+    },
+    verify: async (pub, data, sig) => {
+      return Arweave.crypto.verify(pub, data, sig);
+    },
+    getCurrentHeight: async () => arweave.network.getInfo().then(r => new BigNumber(r.height)),
+    getFee: async (amount, to) => { return new BigNumber(parseInt(await arweave.transactions.getPrice(amount as number, to)) * await currentMultiplier()) },
+    sendTx: async (tx) => {
+      return await arweave.transactions.post(tx);
+    },
+    createTx: async ({ amount, fee, to }, key) => {
+      const tx = await arweave.createTransaction({ quantity: amount.toString(), reward: fee, target: to }, key)
+      await arweave.transactions.sign(tx, key)
+      return { txId: tx.id, tx };
+    }
+  } : undefined,
 };
 
 export async function getRedstonePrice(currency: string): Promise<number> {
